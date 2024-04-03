@@ -1,6 +1,6 @@
 # Inventory Control Management System
 
-The Inventory Control Management System is a database-driven application designed to streamline and optimize inventory management processes for businesses. It provides comprehensive functionalities for tracking products, transactions, suppliers, purchase orders, inventory locations, and order statuses. Users can efficiently manage product information, record transactions, create and track purchase orders, manage supplier details, and monitor inventory levels across different locations. With its user-friendly interface and robust features, the Inventory Control Management System offers businesses a reliable solution for managing their inventory effectively.
+The Inventory Control Management System is a database-driven application designed to streamline and optimize inventory management processes for businesses. It provides comprehensive functionalities for tracking products, transactions, suppliers, purchase orders, inventory locations, and order statuses. Users can efficiently manage product information, record transactions, create and track purchase orders, manage supplier details, and monitor inventory levels across different locations. With robust features, the Inventory Control Management System offers businesses a reliable solution for managing their inventory effectively.
 
 
 **Getting Started**
