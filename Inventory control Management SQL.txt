@@ -1,0 +1,136 @@
+Inventory control Management SQL Commands
+
+There are 7 tables included in the inventory database.
+
+Table Creation: 
+
+-- Products Table
+CREATE TABLE Products (
+    productID INT PRIMARY KEY,
+    productName VARCHAR(255) NOT NULL,
+    stockQuantity INT NOT NULL,
+    unitPrice DECIMAL(10,2) NOT NULL
+);
+
+-- Transactions Table
+CREATE TABLE Transactions (
+    transactionID INT PRIMARY KEY,
+    productID INT,
+    quantity INT NOT NULL,
+    transactionType ENUM('IN', 'OUT') NOT NULL,
+    transactionDate DATE NOT NULL,
+    FOREIGN KEY (productID) REFERENCES Products(productID)
+);
+
+-- Suppliers Table
+CREATE TABLE Suppliers (
+    supplierID INT PRIMARY KEY,
+    supplierName VARCHAR(255) NOT NULL,
+    contactPerson VARCHAR(255),
+    contactNumber VARCHAR(20)
+);
+
+-- Inventory Locations Table
+CREATE TABLE InventoryLocations (
+    locationID INT PRIMARY KEY,
+    locationName VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    capacity INT
+);
+
+-- Order Statuses Table
+CREATE TABLE OrderStatuses (
+    statusID INT PRIMARY KEY,
+    statusName VARCHAR(50) NOT NULL
+);
+
+
+-- Purchase Orders Table
+CREATE TABLE PurchaseOrders (
+    orderID INT PRIMARY KEY,
+    supplierID INT,
+    orderDate DATE NOT NULL,
+    orderStatusID INT,
+    FOREIGN KEY (supplierID) REFERENCES Suppliers(supplierID),
+    FOREIGN KEY (orderStatusID) REFERENCES OrderStatuses(statusID)
+);
+
+-- Order Details Table
+CREATE TABLE OrderDetails (
+    orderID INT,
+    productID INT,
+    quantity INT NOT NULL,
+    unitPrice DECIMAL(10,2) NOT NULL,
+    destinationLocationID INT,
+    FOREIGN KEY (orderID) REFERENCES PurchaseOrders(orderID),
+    FOREIGN KEY (productID) REFERENCES Products(productID),
+    FOREIGN KEY (destinationLocationID) REFERENCES InventoryLocations(locationID)
+);
+
+
+Insertion of data into these tables:
+
+-- Insert values into Products table
+INSERT INTO Products (productID, productName, stockQuantity, unitPrice)
+VALUES 
+    (1, 'Laptop', 10, 1000.00),
+    (2, 'Printer', 20, 300.00),
+    (3, 'Monitor', 15, 200.00),
+    (4, 'Keyboard', 30, 50.00),
+    (5, 'Mouse', 25, 20.00);
+
+-- Insert values into Transactions table
+INSERT INTO Transactions (transactionID, productID, quantity, transactionType, transactionDate)
+VALUES 
+    (1, 1, 2, 'IN', '2024-04-01'),
+    (2, 2, 3, 'IN', '2024-04-02'),
+    (3, 3, 1, 'IN', '2024-04-03'),
+    (4, 4, 4, 'OUT', '2024-04-04'),
+    (5, 5, 2, 'OUT', '2024-04-05');
+
+-- Insert values into Suppliers table
+INSERT INTO Suppliers (supplierID, supplierName, contactPerson, contactNumber)
+VALUES 
+    (1, 'Supplier A', 'John Doe', '123-456-7890'),
+    (2, 'Supplier B', 'Jane Smith', '456-789-0123'),
+    (3, 'Supplier C', 'Alice Johnson', '789-012-3456'),
+    (4, 'Supplier D', 'Bob Brown', '012-345-6789'),
+    (5, 'Supplier E', 'Emma Lee', '345-678-9012');
+
+-- Insert values into InventoryLocations table
+INSERT INTO InventoryLocations (locationID, locationName, address, capacity)
+VALUES 
+    (1, 'Warehouse A', '123 Main St', 1000),
+    (2, 'Warehouse B', '456 Elm St', 1500),
+    (3, 'Warehouse C', '789 Oak St', 2000),
+    (4, 'Warehouse D', '012 Pine St', 1200),
+    (5, 'Warehouse E', '345 Maple St', 1800);
+
+-- Insert values into OrderStatuses table
+INSERT INTO OrderStatuses (statusID, statusName)
+VALUES 
+    (1, 'Pending'),
+    (2, 'Shipped'),
+    (3, 'Delivered'),
+    (4, 'Cancelled'),
+    (5, 'Returned');
+
+-- Insert values into PurchaseOrders table
+INSERT INTO PurchaseOrders (orderID, supplierID, orderDate, orderStatusID)
+VALUES 
+    (1, 1, '2024-04-01', 1),
+    (2, 2, '2024-04-02', 2),
+    (3, 3, '2024-04-03', 1),
+    (4, 4, '2024-04-04', 2),
+    (5, 5, '2024-04-05', 1);
+
+-- Insert values into OrderDetails table
+INSERT INTO OrderDetails (orderID, productID, quantity, unitPrice, destinationLocationID)
+VALUES 
+    (1, 1, 2, 1000.00, NULL),
+    (2, 2, 3, 300.00, NULL),
+    (3, 3, 1, 200.00, NULL),
+    (4, 4, 4, 50.00, NULL),
+    (5, 5, 2, 20.00, NULL);
+
+We can perform all DML,DDL operations on these database.
